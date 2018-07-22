@@ -1,0 +1,42 @@
+﻿home_config 
+		id area size tag sort
+
+banner  
+		id  imgurl  name   cate  cort
+
+minitab 
+		id icon name   cort
+notice
+		id icon context  cort
+
+		
+统一后 
+
+	id name imgurl context sort cate create_time update_time version datastatus
+	
+
+订单项
+	id orderId goodsId goods_type userId goods_name price num smalltotal
+
+订单
+	id userId totalprice paystatus shopname payway（支付  支付+代金卷）
+	
+商品种类（码表）
+	id  name  price  discount type
+
+账户表
+    userId num
+账户流水
+    userId orderId time num
+
+代金卷（码表）
+    id  num  sall_price
+优惠卷（码表）
+    id num use_num
+减免方式（码表）
+    id num  price
+
+用户表
+    id userId name img accountnum  spendnum
+
+

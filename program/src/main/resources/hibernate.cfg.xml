@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+        <!DOCTYPE hibernate-configuration PUBLIC
+                "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/order_foods</property>
+        <!-- JDBC connection pool (use the built-in) -->
+        <!--
+        <property name="connection.pool_size">1</property>
+         -->
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <mapping class="hello.ShareAgentAccountEntity"/>
+        <mapping class="hello.ShareUniqueAccountEntity"/>
+        <mapping class="hello.TaskDailysignRewardEntity"/>
+        <mapping class="hello.TaskUserAwardEntity"/>
+        <mapping class="hello.UserMessageEntity"/>
+        <mapping class="hello.UserNoticeEntity"/>
+        <mapping class="hello.UserTradeMsgEntity"/>
+        <mapping class="hello.EventMakeMarketEntity"/>
+        <mapping class="hello.activeEntity.ActiveInviteEntity"/>
+        <mapping class="hello.activeEntity.ActivePayEntity"/>
+        <mapping class="hello.activeEntity.ActiveRewardsEntity"/>
+        <mapping class="hello.activeEntity.ActivityEventGroupEntity"/>
+        <mapping class="hello.activeEntity.ActivityInfoEntity"/>
+        <mapping class="hello.activeEntity.ActivityPrizeEntity"/>
+        <mapping class="hello.activeEntity.ActivityPrizeInfoEntity"/>
+        <mapping class="hello.activeEntity.ActivityRangkingEntity"/>
+        <mapping class="hello.activeEntity.ActivityTagEntity"/>
+        <mapping class="hello.activeEntity.ActivityInviteEntity"/>
+        <mapping class="hello.activeEntity.ActivityPayEntity"/>
+        <mapping class="hello.activeEntity.ActivityRewardsEntity"/>
+        <mapping class="hello.activeEntity.ActivityImgEntity"/>
+        <mapping class="hello.activeEntity.TaskUserEntity"/>
+        <mapping class="hello.activeEntity.TaskEventgroupEntity"/>
+        <mapping class="hello.activeEntity.TaskInfoEntity"/>
+        <mapping class="hello.activeEntity.EventMakeMarketEntity"/>
+        <mapping class="hello.activeEntity.ActivityWinPrizeEntity"/>
+        <mapping class="hello.activeEntity.UserEmpiricalLogEntity"/>
+        <mapping class="hello.activeEntity.RewardUserPrizeEntity"/>
+        <mapping class="hello.activeEntity.UserMessageEntity"/>
+        <mapping class="hello.activeEntity.ActivityWinorfailEntity"/>
+        <mapping class="hello.activeEntity.ActivityOpertaionInviteEntity"/>
+        <mapping class="hello.activeEntity.ActivityOpertaionInviteCountEntity"/>
+        <mapping class="hello.activeEntity.ActivityToPrizeInfoEntity"/>
+        <mapping class="hello.activeEntity.UserMessageGroupEntity"/>
+        <mapping class="hello.activeEntity.UserMessageRecordEntity"/>
+        <mapping class="hello.activeEntity.UserNoticeRecordEntity"/>
+        <mapping class="hello.activeEntity.ActivityAddprizeRecordEntity"/>
+        <mapping class="hello.activeEntity.ActivityInviteConditionEntity"/>
+        <mapping class="hello.activeEntity.ActivityInviteConditionCountEntity"/>
+        <mapping class="hello.activeEntity.ActivityStageEntity"/>
+        <mapping class="hello.activeEntity.ActivityJoinLogEntity"/>
+        <mapping class="hello.activeEntity.AdminExclusiveUserInfoEntity"/>
+        <mapping class="hello.activeEntity.UserRealnameEntity"/>
+        <mapping class="hello.activeEntity.ActivityBathSendPrizeListEntity"/>
+        <mapping class="hello.activeEntity.ActivityBathSendPrizeTaskEntity"/>
+        <mapping class="hello.activeEntity.ActivityTopicEntity"/>
+        <mapping class="hello.activeEntity.UserSubjectEntity"/>
+        <mapping class="hello.activeEntity.SharePopupEntity"/>
+        <mapping class="com.smart.program.domain.banner.BannerEntity$BannerEntity"/>
+        <mapping class="com.smart.program.domain.notice.NoticeEntity"/>
+        <mapping class="com.smart.program.domain.reserve.ReserveEntity"/>
+        <mapping class="com.smart.program.domain.restaurant.RestaurantEntity"/>
+        <mapping class="com.smart.program.domain.recharge.RechargePackageEntity"/>
+        <mapping class="com.smart.program.domain.recharge.RechargeOrderEntity"/>
+        <mapping class="com.smart.program.domain.userId.UserInfoEntity"/>
+        <!-- Drop and re-create the database schema on startup -->
+        <!--
+        <property name="hbm2ddl.auto">update</property>
+        -->
+
+    </session-factory>
+</hibernate-configuration>
