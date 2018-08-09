@@ -136,7 +136,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderItemDTO2> goodMsg = request.getGoodMsg();
         long orderId = idWorker.nextId();
         List<OrderItemEntity> items = new ArrayList<>();
-        BigDecimal totalPrice = new BigDecimal(0);
+        BigDecimal totalPrice = BigDecimal.ZERO;
         //构建订单项
         for (OrderItemDTO2 orderItem : goodMsg) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
@@ -153,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemEntity.setSubtotal(price);
             orderItemEntity.setOrderType((byte) 0);
             items.add(orderItemEntity);
-            totalPrice.add(price);
+            totalPrice = totalPrice.add(price);
         }
         //构建订单
         OrderInfoEntity orderInfoEntity = new OrderInfoEntity();
