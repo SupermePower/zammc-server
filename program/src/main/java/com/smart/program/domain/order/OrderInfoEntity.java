@@ -1,16 +1,21 @@
 package com.smart.program.domain.order;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
  * 订单
- * Created by baihe
+ * @author fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "order_info")
+@DynamicUpdate
+@DynamicInsert
 public class OrderInfoEntity {
     private long orderId;
     private String userId;

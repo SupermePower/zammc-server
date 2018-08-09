@@ -1,11 +1,16 @@
 package com.smart.program.domain.recharge;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "recharge_order")
+@DynamicInsert
+@DynamicUpdate
 public class RechargeOrderEntity {
     private long orderId;
     private String userId;

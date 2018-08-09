@@ -1,16 +1,21 @@
 package com.smart.program.domain.account;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
  * 账户流水
- * Created by baihe
+ * @author fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "account_water")
+@DynamicInsert
+@DynamicUpdate
 public class AccountWaterEntity {
     private long waterId;
     private String userId;

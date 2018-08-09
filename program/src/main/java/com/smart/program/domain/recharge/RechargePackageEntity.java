@@ -1,5 +1,8 @@
 package com.smart.program.domain.recharge;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -9,6 +12,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "recharge_package")
+@DynamicInsert
+@DynamicUpdate
 public class RechargePackageEntity {
     private long packageId;
     private String packageName;

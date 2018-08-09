@@ -1,15 +1,20 @@
 package com.smart.program.domain.goods;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * 商品分类
- * Created by baihe
+ * @author fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "goods_cate")
+@DynamicInsert
+@DynamicUpdate
 public class GoodsCateEntity {
     private long cateId;
     private String cateIcon;

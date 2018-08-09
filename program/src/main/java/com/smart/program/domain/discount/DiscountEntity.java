@@ -1,16 +1,21 @@
 package com.smart.program.domain.discount;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
  * 折扣
- * Created by baihe
+ * @author  fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "discount")
+@DynamicInsert
+@DynamicUpdate
 public class DiscountEntity {
     private long id;
     private byte discountType;

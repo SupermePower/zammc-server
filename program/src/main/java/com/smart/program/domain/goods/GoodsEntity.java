@@ -1,16 +1,21 @@
 package com.smart.program.domain.goods;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
  * 商品
- * Created by baihe
+ * @author fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "goods")
+@DynamicInsert
+@DynamicUpdate
 public class GoodsEntity {
     private long goodsId;
     private String goodsName;

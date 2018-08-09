@@ -1,5 +1,8 @@
 package com.smart.program.domain.activity;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -10,6 +13,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "activity")
+@DynamicInsert
+@DynamicUpdate
 public class ActivityEntity {
 
     private long activityId;

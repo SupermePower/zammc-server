@@ -1,16 +1,21 @@
 package com.smart.program.domain.coupon;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
  * 代金券
- * Created by baihe
+ * @author  fuliying
  * ON 2018/4/19.
  */
 @Entity
 @Table(name = "coupon")
+@DynamicInsert
+@DynamicUpdate
 public class CouponEntity {
     private long id;
     private int couponNum;

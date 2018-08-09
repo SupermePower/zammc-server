@@ -1,5 +1,8 @@
 package com.smart.program.domain.restaurant;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -8,6 +11,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "restaurant")
+@DynamicInsert
+@DynamicUpdate
 public class RestaurantEntity {
     private long restaurantId;
     private String restaurantName;
