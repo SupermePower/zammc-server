@@ -56,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      * @throws Exception
      */
+    @Override
     public OrderResponseList queryUserOrder(UserRequest request) throws Exception {
         OrderResponseList orderResponseList = new OrderResponseList();
 
@@ -101,8 +102,8 @@ public class OrderServiceImpl implements OrderService {
             BigDecimal actMoney = BigDecimal.ZERO;
             List<OrderItemEntity> orderItemEntities = orderItemService.queryOrderItem(orderInfoEntity.getOrderId());
             for (OrderItemEntity orderItemEntity : orderItemEntities) {
-                money.add(orderItemEntity.getGoodsPrice());
-                actMoney.add(orderItemEntity.getRealPrice());
+                money = money.add(orderItemEntity.getGoodsPrice());
+                actMoney = actMoney.add(orderItemEntity.getRealPrice());
             }
             delMoney = money.subtract(actMoney);
             orderResponse.setMoney(money);
@@ -121,6 +122,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      * @throws Exception
      */
+    @Override
     public OrderInfoEntity queryOrderInfoById(long orderId) throws Exception {
         return orderInfoDao.findByOrderId(orderId);
     }
