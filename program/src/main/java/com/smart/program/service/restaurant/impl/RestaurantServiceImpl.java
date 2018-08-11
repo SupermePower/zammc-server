@@ -27,6 +27,7 @@ public class RestaurantServiceImpl implements RestaurantService {
      * @return
      * @throws Exception
      */
+    @Override
     public RestaurantEntity queryRestaurant() throws Exception {
         return restaurantRepository.queryRestaurantEntity();
     }

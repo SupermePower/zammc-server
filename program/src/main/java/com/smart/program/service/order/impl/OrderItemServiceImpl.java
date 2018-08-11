@@ -35,6 +35,7 @@ public class OrderItemServiceImpl implements OrderItemService {
      * @return
      * @throws Exception
      */
+    @Override
     public List<OrderItemEntity> queryOrderItem(Long orderId) throws Exception {
         return orderItemDao.queryOrderItem(orderId);
     }
@@ -46,6 +47,7 @@ public class OrderItemServiceImpl implements OrderItemService {
      * @return
      * @throws Exception
      */
+    @Override
     public OrderDetailResponseList queryOrderDetail(QueryOrderDetailRequest request) throws Exception {
         OrderDetailResponseList orderDetailResponseList = new OrderDetailResponseList();
         // 获取店铺信息

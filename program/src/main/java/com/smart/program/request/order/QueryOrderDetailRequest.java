@@ -12,7 +12,6 @@ public class QueryOrderDetailRequest {
     private Long userId;
     @NotNull(message = "订单主键不能为空")
     private Long orderId;
-    @NotNull(message = "商户主键不能为空")
     private Long restaurantId;
 
     public QueryOrderDetailRequest() {
