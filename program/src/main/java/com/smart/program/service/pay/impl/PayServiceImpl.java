@@ -36,6 +36,7 @@ public class PayServiceImpl implements PayService {
      * @throws Exception
      * @return
      */
+    @Override
     public Map<String, Object> pay(PayRequest request) throws Exception {
 
         BigDecimal payAmount = request.getPayAmount();

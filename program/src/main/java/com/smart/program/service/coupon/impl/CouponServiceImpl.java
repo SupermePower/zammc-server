@@ -44,6 +44,7 @@ public class CouponServiceImpl implements CouponService {
      * @return
      * @throws Exception
      */
+    @Override
     public List<CouponResponse> queryCouponList(UserRequest request) throws Exception {
         List<CouponResponse> couponResponses = new ArrayList<>();
         RestaurantEntity restaurantEntity = restaurantRepository.queryRestaurantEntity();
@@ -91,6 +92,7 @@ public class CouponServiceImpl implements CouponService {
      * @param request
      * @throws Exception
      */
+    @Override
     @Transactional
     public void receiveCoupon(ReceiveCouponRequest request) throws Exception {
         CouponUserEntity couponUserEntity = couponUserDao.queryUserCoupon(request.getCouponId(), request.getUserId());
@@ -118,6 +120,7 @@ public class CouponServiceImpl implements CouponService {
      * @return
      * @throws Exception
      */
+    @Override
     public List<CouponResponse> queryUserCoupons(UserRequest request) throws Exception {
         List<CouponResponse> couponResponses = new ArrayList<>();
         RestaurantEntity restaurantEntity = restaurantRepository.queryRestaurantEntity();

@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/order_foods</property>
+        <property name="connection.url">jdbc:mysql://111.231.220.190:3306/order_foods</property>
         <!-- JDBC connection pool (use the built-in) -->
         <!--
         <property name="connection.pool_size">1</property>
@@ -73,6 +73,7 @@
         <mapping class="com.smart.program.domain.recharge.RechargePackageEntity"/>
         <mapping class="com.smart.program.domain.recharge.RechargeOrderEntity"/>
         <mapping class="com.smart.program.domain.userId.UserInfoEntity"/>
+        <mapping class="com.smart.program.domain.dining.DiningTableEntity"/>
         <!-- Drop and re-create the database schema on startup -->
         <!--
         <property name="hbm2ddl.auto">update</property>
