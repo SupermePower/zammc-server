@@ -33,8 +33,7 @@ public class DiningTableController {
     public ResponseVO updateDiningTableStatus(@PathVariable Long id) {
         ResponseVO responseVO = new ResponseVO();
         try {
-            diningTableService.updateStatus(id);
-            responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG);
+            responseVO = diningTableService.updateStatus(id);
         } catch (Exception e) {
             log.error("DiningTableController updateDiningTableStatus tableId -> {} Exception", id, e);
             responseVO.setResult(ErrorConstant.ERROR_CODE, ErrorConstant.ERROR_MSG);

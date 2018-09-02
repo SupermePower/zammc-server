@@ -33,4 +33,7 @@ public class ErrorConstant {
 
     public static final int COUPON_IS_NOT_ENOUGH_ERROR = 4000001;
     public static final String COUPON_IS_NOT_ENOUGH_ERROR_MSG = "代金券已被领完";
+
+    public static final int RESTAURANT_REST_ERROR = 5000000;
+    public static final String RESTAURANT_REST_ERROR_MSG = "店家休息";
 }

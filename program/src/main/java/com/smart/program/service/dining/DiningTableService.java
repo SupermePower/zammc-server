@@ -1,5 +1,7 @@
 package com.smart.program.service.dining;
 
+import com.smart.program.response.ResponseVO;
+
 /**
  * @description 餐位业务接口
  * @author: liying.fu
@@ -12,5 +14,5 @@ public interface DiningTableService {
      * @param id 餐位主键
      * @throws Exception
      */
-    void updateStatus(Long id) throws Exception;
+    ResponseVO updateStatus(Long id) throws Exception;
 }
