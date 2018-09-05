@@ -4,8 +4,7 @@ import com.smart.program.domain.order.OrderInfoEntity;
 import com.smart.program.request.UserRequest;
 import com.smart.program.request.order.PlaceOrderRequest;
 import com.smart.program.response.order.OrderResponseList;
-
-import java.math.BigDecimal;
+import com.smart.program.response.order.PlaceOrderResponse;
 
 public interface OrderService {
 
@@ -18,7 +17,13 @@ public interface OrderService {
      */
     OrderResponseList queryUserOrder(UserRequest request) throws Exception;
 
-    BigDecimal placeOrder(PlaceOrderRequest request);
+    /**
+     * 用户下单
+     *
+     * @param request 下单请求参数
+     * @return
+     */
+    PlaceOrderResponse placeOrder(PlaceOrderRequest request);
 
     /**
      * 根据订单主键获取订单信息

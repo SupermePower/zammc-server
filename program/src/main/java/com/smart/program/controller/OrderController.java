@@ -7,6 +7,7 @@ import com.smart.program.request.order.QueryOrderDetailRequest;
 import com.smart.program.response.ResponseVO;
 import com.smart.program.response.order.OrderDetailResponseList;
 import com.smart.program.response.order.OrderResponseList;
+import com.smart.program.response.order.PlaceOrderResponse;
 import com.smart.program.service.order.OrderItemService;
 import com.smart.program.service.order.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/order")
@@ -75,12 +75,12 @@ public class OrderController {
      * @return
      */
     @RequestMapping(path = "/placeOrder", method = RequestMethod.POST)
-    public ResponseVO<BigDecimal> placeOrder(@RequestBody @Valid PlaceOrderRequest request) {
-        System.out.println(request);
-        ResponseVO<BigDecimal> responseVO = new ResponseVO<>();
+    public ResponseVO<PlaceOrderResponse> placeOrder(@RequestBody @Valid PlaceOrderRequest request) {
+        log.info("place order param -> {}", request.toString());
+        ResponseVO<PlaceOrderResponse> responseVO = new ResponseVO<>();
         try {
-            BigDecimal price = orderService.placeOrder(request);
-            responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG);
+            PlaceOrderResponse response = orderService.placeOrder(request);
+            responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, response);
         } catch (Exception e) {
             log.error("OrderController queryUserOrder -> {} Exception \n", request.toString(), e);
             responseVO.setResult(ErrorConstant.ERROR_CODE, ErrorConstant.ERROR_MSG);

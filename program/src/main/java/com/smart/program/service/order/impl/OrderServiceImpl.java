@@ -13,6 +13,7 @@ import com.smart.program.request.order.OrderItemDTO2;
 import com.smart.program.request.order.PlaceOrderRequest;
 import com.smart.program.response.order.OrderResponse;
 import com.smart.program.response.order.OrderResponseList;
+import com.smart.program.response.order.PlaceOrderResponse;
 import com.smart.program.service.order.OrderItemService;
 import com.smart.program.service.order.OrderService;
 import com.smart.program.service.restaurant.RestaurantService;
@@ -134,7 +135,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public BigDecimal placeOrder(PlaceOrderRequest request) {
+    public PlaceOrderResponse placeOrder(PlaceOrderRequest request) {
         List<OrderItemDTO2> goodMsg = request.getGoodMsg();
         long orderId = idWorker.nextId();
         List<OrderItemEntity> items = new ArrayList<>();
@@ -168,7 +169,10 @@ public class OrderServiceImpl implements OrderService {
         orderInfoDao.saveAndFlush(orderInfoEntity);
 
         printer.print(Printer.SN, getPrintContent(goodMsg));
-        return totalPrice;
+        PlaceOrderResponse response = new PlaceOrderResponse();
+        response.setOrderId(orderId);
+        response.setTotalPrice(totalPrice);
+        return response;
     }
 
     /**
