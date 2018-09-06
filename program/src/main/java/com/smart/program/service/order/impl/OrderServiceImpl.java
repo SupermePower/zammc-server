@@ -180,7 +180,6 @@ public class OrderServiceImpl implements OrderService {
         orderItemDao.saveAll(items);
         orderInfoDao.saveAndFlush(orderInfoEntity);
 
-        printer.print(Printer.SN, getPrintContent(goodMsg));
         PlaceOrderResponse response = new PlaceOrderResponse();
         response.setOrderId(orderId);
         response.setTotalPrice(totalPrice);
@@ -190,20 +189,20 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 获取打印数据
      *
-     * @param goodMsg
+     * @param orderItemEntities
      * @return
      */
-    private String getPrintContent(List<OrderItemDTO2> goodMsg) {
+    private String getPrintContent(List<OrderItemEntity> orderItemEntities) {
         String content;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         BigDecimal totalPrice = BigDecimal.ZERO;
         content = "<CB>点餐信息</CB><BR>";
         content += "名称　　　　　 单价  数量 金额<BR>";
         content += "--------------------------------<BR>";
-        for (OrderItemDTO2 orderItem : goodMsg) {
-            content += orderItem.getName() + "　　　　　　 " + orderItem.getPrice() + "    " + orderItem.getNum() + "   "
-                    + orderItem.getPrice().multiply(new BigDecimal(orderItem.getNum())) + "<BR>";
-            totalPrice.add(orderItem.getPrice());
+        for (OrderItemEntity orderItem : orderItemEntities) {
+            content += orderItem.getGoodsName() + "　　　　　　 " + orderItem.getRealPrice() + "    " + orderItem.getGoodsNum() + "   "
+                    + orderItem.getRealPrice().multiply(new BigDecimal(orderItem.getGoodsNum())) + "<BR>";
+            totalPrice.add(orderItem.getRealPrice());
         }
         content += "备注：<BR>";
         content += "--------------------------------<BR>";
@@ -276,6 +275,8 @@ public class OrderServiceImpl implements OrderService {
             // 新增充值信息至订单表
             rechargeOrderRepository.saveAndFlush(rechargeOrderEntity);
         }
+        List<OrderItemEntity> orderItemEntities = orderItemDao.queryOrderItem(request.getOrderId());
+        printer.print(Printer.SN, getPrintContent(orderItemEntities));
         return result;
     }
 
