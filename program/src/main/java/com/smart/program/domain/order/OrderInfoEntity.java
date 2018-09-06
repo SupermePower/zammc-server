@@ -30,6 +30,7 @@ public class OrderInfoEntity {
     private Timestamp updateTime;
     private Byte version;
     private Byte dataStatus;
+    private Byte isConfirm;
 
     @Id
     @Column(name = "order_id")
@@ -161,4 +162,13 @@ public class OrderInfoEntity {
         this.dataStatus = dataStatus;
     }
 
+    @Basic
+    @Column(name = "is_confirm")
+    public Byte getIsConfirm() {
+        return isConfirm;
+    }
+
+    public void setIsConfirm(Byte isConfirm) {
+        this.isConfirm = isConfirm;
+    }
 }

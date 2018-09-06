@@ -2,6 +2,7 @@ package com.smart.program.controller;
 
 import com.smart.program.common.ErrorConstant;
 import com.smart.program.request.UserRequest;
+import com.smart.program.request.order.PayOrderRequest;
 import com.smart.program.request.order.PlaceOrderRequest;
 import com.smart.program.request.order.QueryOrderDetailRequest;
 import com.smart.program.response.ResponseVO;
@@ -12,12 +13,10 @@ import com.smart.program.service.order.OrderItemService;
 import com.smart.program.service.order.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -83,6 +82,25 @@ public class OrderController {
             responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, response);
         } catch (Exception e) {
             log.error("OrderController queryUserOrder -> {} Exception \n", request.toString(), e);
+            responseVO.setResult(ErrorConstant.ERROR_CODE, ErrorConstant.ERROR_MSG);
+        }
+        return responseVO;
+    }
+
+    /**
+     * 订单支付
+     *
+     * @param request 订单支付请求对象
+     * @return
+     */
+    @PutMapping(path = "/payOrder")
+    public ResponseVO<Map<String, Object>> payOrder(@RequestBody @Valid PayOrderRequest request) {
+        ResponseVO<Map<String, Object>> responseVO = new ResponseVO<>();
+        try {
+            Map<String, Object> result = orderService.payOrder(request);
+            responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, result);
+        } catch (Exception e) {
+            log.error("OrderController payOrder request -> {} Exception", request.toString(), e);
             responseVO.setResult(ErrorConstant.ERROR_CODE, ErrorConstant.ERROR_MSG);
         }
         return responseVO;

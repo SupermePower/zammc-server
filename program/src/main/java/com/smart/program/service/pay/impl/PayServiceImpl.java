@@ -33,8 +33,8 @@ public class PayServiceImpl implements PayService {
      * 转账
      *
      * @param request
-     * @throws Exception
      * @return
+     * @throws Exception
      */
     @Override
     public Map<String, Object> pay(PayRequest request) throws Exception {
@@ -60,7 +60,8 @@ public class PayServiceImpl implements PayService {
         //组装参数，用户生成统一下单接口的签名
         Map<String, String> packageParams = getSign(request, orderId, request.getPayAmount(), nonce_str);
 
-        String preStr = PayUtil.createLinkString(packageParams); // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+        // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+        String preStr = PayUtil.createLinkString(packageParams);
 
         //MD5运算生成签名，这里是第一次签名，用于调用统一下单接口
         String mySign = PayUtil.sign(preStr, ServiceConfig.key, "utf-8").toUpperCase();
@@ -85,15 +86,17 @@ public class PayServiceImpl implements PayService {
             log.error("调用微信转账失败");
             throw new BusinessException(ErrorConstant.RECHARGE_ERROR, ErrorConstant.RECHARGE_ERROR_MSG);
         }
-
-        String return_code = (String) map.get("return_code");//返回状态码
+        //返回状态码
+        String return_code = (String) map.get("return_code");
 
         if (return_code == "SUCCESS") {
-            String prepay_id = (String) map.get("prepay_id");//返回的预付单信息
+            //返回的预付单信息
+            String prepay_id = (String) map.get("prepay_id");
             result.put("nonceStr", nonce_str);
             result.put("package", "prepay_id=" + prepay_id);
             Long timeStamp = System.currentTimeMillis() / 1000;
-            result.put("timeStamp", timeStamp + "");//这边要将返回的时间戳转化成字符串，不然小程序端调用wx.requestPayment方法会报签名错误
+            //这边要将返回的时间戳转化成字符串，不然小程序端调用wx.requestPayment方法会报签名错误
+            result.put("timeStamp", timeStamp + "");
             //拼接签名需要的参数
             String stringSignTemp = "appId=" + ServiceConfig.MINIAPPID + "&nonceStr=" + nonce_str + "&package=prepay_id=" + prepay_id + "&signType=MD5&timeStamp=" + timeStamp;
             //再次签名，这个签名用于小程序端调用wx.requesetPayment方法
@@ -121,11 +124,15 @@ public class PayServiceImpl implements PayService {
         packageParams.put("mch_id", ServiceConfig.mch_id);
         packageParams.put("nonce_str", nonce_str);
         packageParams.put("body", "转账");
-        packageParams.put("out_trade_no", ObjectTranslate.getString(orderId));//商户订单号
-        packageParams.put("total_fee", fee + "");//支付金额，这边需要转成字符串类型，否则后面的签名会失败  ObjectTranslate.getString(order.get("transport"))
+        //商户订单号
+        packageParams.put("out_trade_no", ObjectTranslate.getString(orderId));
+        //支付金额，这边需要转成字符串类型，否则后面的签名会失败  ObjectTranslate.getString(order.get("transport"))
+        packageParams.put("total_fee", fee + "");
         packageParams.put("spbill_create_ip", "127.0.0.1");
-        packageParams.put("notify_url", ServiceConfig.notify_url);//支付成功后的回调地址
-        packageParams.put("trade_type", ServiceConfig.TRADETYPE);//支付方式
+        //支付成功后的回调地址
+        packageParams.put("notify_url", ServiceConfig.notify_url);
+        //支付方式
+        packageParams.put("trade_type", ServiceConfig.TRADETYPE);
         packageParams.put("openid", request.getUserId());
         return packageParams;
     }
