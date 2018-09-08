@@ -24,7 +24,7 @@ public class OrderInfoEntity {
     private Byte payStatus;
     private String payWay;
     private Timestamp payTime;
-    private Integer tableNum;
+    private String tableNum;
     private String memo;
     private Timestamp createTime;
     private Timestamp updateTime;
@@ -104,11 +104,11 @@ public class OrderInfoEntity {
 
     @Basic
     @Column(name = "table_num")
-    public Integer getTableNum() {
+    public String getTableNum() {
         return tableNum;
     }
 
-    public void setTableNum(Integer tableNum) {
+    public void setTableNum(String tableNum) {
         this.tableNum = tableNum;
     }
 

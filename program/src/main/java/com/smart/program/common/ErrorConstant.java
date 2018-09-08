@@ -36,4 +36,10 @@ public class ErrorConstant {
 
     public static final int RESTAURANT_REST_ERROR = 5000000;
     public static final String RESTAURANT_REST_ERROR_MSG = "店家休息";
+
+    public static final int TABLE_NULL_ERROR = 6000000;
+    public static final String TABLE_NULL_ERROR_MSG = "餐位不存在";
+
+    public static final int TABLE_IS_USING_ERROR = 6000001;
+    public static final String TABLE_IS_USING_ERROR_MSG = "该餐位已有人用餐";
 }

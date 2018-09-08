@@ -12,7 +12,6 @@ import com.smart.program.domain.recharge.RechargeOrderEntity;
 import com.smart.program.domain.restaurant.RestaurantEntity;
 import com.smart.program.exception.BusinessException;
 import com.smart.program.idwork.IdWorker;
-import com.smart.program.repository.goods.GoodsDao;
 import com.smart.program.repository.order.OrderInfoDao;
 import com.smart.program.repository.order.OrderItemDao;
 import com.smart.program.repository.recharge.RechargeOrderRepository;
@@ -49,9 +48,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private IdWorker idWorker;
-
-    @Autowired
-    private GoodsDao goodsDao;
 
     @Autowired
     private OrderItemDao orderItemDao;
@@ -150,9 +146,10 @@ public class OrderServiceImpl implements OrderService {
     public PlaceOrderResponse placeOrder(PlaceOrderRequest request) {
         List<OrderItemDTO2> goodMsg = request.getGoodMsg();
         long orderId = idWorker.nextId();
-        List<OrderItemEntity> items = new ArrayList<>();
+
         BigDecimal totalPrice = BigDecimal.ZERO;
         //构建订单项
+        List<OrderItemEntity> items = new ArrayList<>();
         for (OrderItemDTO2 orderItem : goodMsg) {
             OrderItemEntity orderItemEntity = new OrderItemEntity();
             orderItemEntity.setItemId(idWorker.nextId());
@@ -170,16 +167,45 @@ public class OrderServiceImpl implements OrderService {
             items.add(orderItemEntity);
             totalPrice = totalPrice.add(price);
         }
+
+        //保存数据
+        orderItemDao.saveAll(items);
+
         //构建订单
+        OrderInfoEntity orderInfoEntity = getOrderInfoEntity(request, orderId, totalPrice);
+        orderInfoDao.saveAndFlush(orderInfoEntity);
+
+        //获取响应对象
+        PlaceOrderResponse response = getPlaceOrderResponse(orderId, totalPrice);
+        return response;
+    }
+
+    /**
+     * 构建订单信息
+     *
+     * @param request    下单请求对象
+     * @param orderId    订单主键
+     * @param totalPrice 订单总价
+     * @return
+     */
+    private OrderInfoEntity getOrderInfoEntity(PlaceOrderRequest request, long orderId, BigDecimal totalPrice) {
         OrderInfoEntity orderInfoEntity = new OrderInfoEntity();
         orderInfoEntity.setOrderId(orderId);
         orderInfoEntity.setUserId(request.getUserId());
         orderInfoEntity.setTotalprice(totalPrice);
         orderInfoEntity.setPayStatus((byte) 0);
-        //保存数据
-        orderItemDao.saveAll(items);
-        orderInfoDao.saveAndFlush(orderInfoEntity);
+        orderInfoEntity.setTableNum(request.getTableCode());
+        return orderInfoEntity;
+    }
 
+    /**
+     * 获取下单响应对象
+     *
+     * @param orderId    订单ID
+     * @param totalPrice 订单价格
+     * @return
+     */
+    private PlaceOrderResponse getPlaceOrderResponse(long orderId, BigDecimal totalPrice) {
         PlaceOrderResponse response = new PlaceOrderResponse();
         response.setOrderId(orderId);
         response.setTotalPrice(totalPrice);
@@ -189,7 +215,7 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 获取打印数据
      *
-     * @param orderItemEntities
+     * @param orderItemEntities 订单详情
      * @return
      */
     private String getPrintContent(List<OrderItemEntity> orderItemEntities) {
@@ -214,6 +240,13 @@ public class OrderServiceImpl implements OrderService {
         return content;
     }
 
+    /**
+     * 支付订单
+     *
+     * @param request 订单支付请求兑现
+     * @return
+     * @throws Exception
+     */
     @Override
     public Map<String, Object> payOrder(PayOrderRequest request) throws Exception {
         OrderInfoEntity byOrderId = orderInfoDao.findByOrderId(request.getOrderId());
@@ -283,10 +316,10 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 获取签名
      *
-     * @param userId
-     * @param orderId
-     * @param fee
-     * @param nonce_str
+     * @param userId    用户主键
+     * @param orderId   订单主键
+     * @param fee       支付金额
+     * @param nonce_str nonce_str
      * @return
      */
     private Map<String, String> getSign(String userId, Long orderId, BigDecimal fee, String nonce_str) {
@@ -311,10 +344,10 @@ public class OrderServiceImpl implements OrderService {
     /**
      * 获取报文
      *
-     * @param orderId
-     * @param fee
-     * @param nonce_str
-     * @param mySign
+     * @param orderId   订单主键
+     * @param fee       订单价格
+     * @param nonce_str nonce_str
+     * @param mySign    签名信息
      * @return
      */
     private String getMessage(Long orderId, BigDecimal fee, String nonce_str, String mySign) {

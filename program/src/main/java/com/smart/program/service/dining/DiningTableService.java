@@ -14,5 +14,5 @@ public interface DiningTableService {
      * @param id 餐位主键
      * @throws Exception
      */
-    ResponseVO updateStatus(Long id) throws Exception;
+    ResponseVO<String> updateStatus(Long id) throws Exception;
 }

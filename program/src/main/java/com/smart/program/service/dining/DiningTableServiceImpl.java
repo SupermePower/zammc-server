@@ -25,21 +25,28 @@ public class DiningTableServiceImpl implements DiningTableService {
 
     /**
      * 修改餐位状态
+     *
      * @param id 餐位主键
      * @throws Exception
      */
     @Override
-    public ResponseVO updateStatus(Long id) throws Exception {
-        ResponseVO responseVO = new ResponseVO();
+    public ResponseVO<String> updateStatus(Long id) throws Exception {
+        ResponseVO<String> responseVO = new ResponseVO<>();
+        //校验餐厅是否营业
         RestaurantEntity restaurantEntity = restaurantService.queryRestaurant();
         if (restaurantEntity.getStatus() == 0) {
             return responseVO.setResult(ErrorConstant.RESTAURANT_REST_ERROR, ErrorConstant.RESTAURANT_REST_ERROR_MSG);
         }
-        DiningTableEntity diningTableEntity = diningTableRepository.findById(id).get();
-        if (diningTableEntity != null) {
-            diningTableEntity.setTableStatus((byte) 0);
-            diningTableRepository.saveAndFlush(diningTableEntity);
+        //校验餐位是否可以点餐
+        DiningTableEntity diningTableEntity = diningTableRepository.findDiningTable(id);
+        if (null == diningTableEntity) {
+            return responseVO.setResult(ErrorConstant.TABLE_NULL_ERROR, ErrorConstant.TABLE_NULL_ERROR_MSG);
         }
-        return responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG);
+        if (diningTableEntity.getDataStatus() == 0) {
+            return responseVO.setResult(ErrorConstant.TABLE_IS_USING_ERROR, ErrorConstant.TABLE_IS_USING_ERROR_MSG);
+        }
+        diningTableEntity.setTableStatus((byte) 0);
+        diningTableRepository.saveAndFlush(diningTableEntity);
+        return responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, diningTableEntity.getTableCode());
     }
 }

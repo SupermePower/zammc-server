@@ -30,8 +30,8 @@ public class DiningTableController {
      * @return
      */
     @GetMapping(path = "/updateDiningTableStatus/{id}")
-    public ResponseVO updateDiningTableStatus(@PathVariable Long id) {
-        ResponseVO responseVO = new ResponseVO();
+    public ResponseVO<String> updateDiningTableStatus(@PathVariable Long id) {
+        ResponseVO<String> responseVO = new ResponseVO();
         try {
             responseVO = diningTableService.updateStatus(id);
         } catch (Exception e) {
