@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pay")
@@ -30,10 +31,11 @@ public class PayController {
      * @return
      */
     @RequestMapping(path = "/pay", method = RequestMethod.POST)
-    public ResponseVO pay(@RequestBody @Valid PayRequest request) {
-        ResponseVO responseVO = new ResponseVO();
+    public ResponseVO<Map<String, Object>> pay(@RequestBody @Valid PayRequest request) {
+        ResponseVO<Map<String, Object>> responseVO = new ResponseVO();
         try {
-            payService.pay(request);
+            Map<String, Object> pay = payService.pay(request);
+            responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, pay);
         } catch (BusinessException b) {
             log.error("PayController pay request -> {} BusinessException \n", request.toString(), b);
             responseVO.setResult(b.getDealCode(), b.getMessage());

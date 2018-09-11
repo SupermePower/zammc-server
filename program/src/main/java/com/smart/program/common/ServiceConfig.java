@@ -3,16 +3,16 @@ package com.smart.program.common;
 public class ServiceConfig {
 	
 	//小程序appid
-	public static final String MINIAPPID = "wxee3f46cc7f8ca2dd";
+	public static final String MINIAPPID = "wxfc61b3daa2d95647";
 
 	//微信支付的商户id
-	public static final String mch_id = "1504884031";
+	public static final String mch_id = "1512004671";
 
 	//微信支付的商户密钥
 	public static final String key = "shanximanbuyundiankejiyouxiang11";
 
 	//支付成功后的服务器回调url
-	public static final String notify_url = "https://www.sxmbyd.com/order-foods/recharge/callBack";
+	public static final String notify_url = "https://www.sxbhyc.com/order-foods/recharge/callBack";
 
 	//交易类型，小程序支付的固定值为JSAPI
 	public static final String TRADETYPE = "JSAPI";
