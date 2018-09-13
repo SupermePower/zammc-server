@@ -302,9 +302,10 @@ public class OrderServiceImpl implements OrderService {
             RechargeOrderEntity rechargeOrderEntity = new RechargeOrderEntity();
             rechargeOrderEntity.setOrderId(orderId);
             rechargeOrderEntity.setUserId(byOrderId.getUserId());
-
+            rechargeOrderEntity.setRechargeMoney(totalprice);
             rechargeOrderEntity.setPayMoney(totalprice);
             rechargeOrderEntity.setIsPackage((byte) 0);
+            rechargeOrderEntity.setType((byte) 1);
             // 新增充值信息至订单表
             rechargeOrderRepository.saveAndFlush(rechargeOrderEntity);
         }
