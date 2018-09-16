@@ -31,7 +31,6 @@ public class ReserveServiceImpl implements ReserveService {
         reserveEntity.setReserveNumbers(request.getReserveNumbers());
         reserveEntity.setReserveTime(request.getCurrentDate() + " " + request.getCurrentTime());
         reserveEntity.setSummary(request.getSummary());
-        reserveEntity.setDataStatus((byte) 1);
         reserveRepository.saveAndFlush(reserveEntity);
     }
 }

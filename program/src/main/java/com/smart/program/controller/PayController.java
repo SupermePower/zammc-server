@@ -32,7 +32,7 @@ public class PayController {
      */
     @RequestMapping(path = "/pay", method = RequestMethod.POST)
     public ResponseVO<Map<String, Object>> pay(@RequestBody @Valid PayRequest request) {
-        ResponseVO<Map<String, Object>> responseVO = new ResponseVO();
+        ResponseVO<Map<String, Object>> responseVO = new ResponseVO<>();
         try {
             Map<String, Object> pay = payService.pay(request);
             responseVO.setResult(ErrorConstant.SUCCESS_CODE, ErrorConstant.SUCCESS_MSG, pay);

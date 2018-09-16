@@ -50,6 +50,7 @@ public class PayServiceImpl implements PayService {
         rechargeOrderEntity.setUserId(request.getUserId());
 
         rechargeOrderEntity.setPayMoney(payAmount);
+        rechargeOrderEntity.setRechargeMoney(payAmount);
         rechargeOrderEntity.setIsPackage((byte) 0);
         // 新增充值信息至订单表
         rechargeOrderRepository.saveAndFlush(rechargeOrderEntity);
